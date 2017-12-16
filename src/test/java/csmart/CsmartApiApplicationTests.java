@@ -14,8 +14,10 @@ public class CsmartApiApplicationTests {
 
 
 	@Test
-	public void contextLoads() {
+	public void context() {
 
 	}
+
+	
 
 }

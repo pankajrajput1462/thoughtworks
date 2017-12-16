@@ -19,7 +19,7 @@ public class UserController {
         userRepo.createUser(user);
     }
 
-    @GetMapping()
+    @GetMapping("/getuser")
     public @ResponseBody User getUser(@RequestParam("emailId") String emailId){
         return userRepo.getUser(emailId);
     }

@@ -19,6 +19,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'nu.studer.jooq'
 apply plugin: "org.flywaydb.flyway"
@@ -36,16 +37,18 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.postgresql:postgresql:9.4.1211.jre7')
 	compile('org.flywaydb:flyway-core:4.0.3')
+	compile('org.projectlombok:lombok:1.16.18')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
 
 jooq {
 	csmart(sourceSets.main) {
 		jdbc {
 			driver = 'org.postgresql.Driver'
-			url = 'jdbc:postgresql://localhost:7654/csmartci'
-			user = 'csmartuser'
-			password = 'csmartuser'
+			url = 'jdbc:postgresql://localhost:5432/csmartci'
+			user = 'postgres'
+			password = 'root'
 			schema = 'public'
 		}
 		generator {
@@ -85,12 +88,12 @@ jooq {
 }
 
 flyway {
-	url = 'jdbc:postgresql://localhost:7654/csmartci'
-	user = 'csmartuser'
-	password = 'csmartuser'
+	url = 'jdbc:postgresql://localhost:5432/csmartci'
+	user = 'postgres'
+	password = 'root'
 	schemas = ['public']
 	locations = ["filesystem:$project.projectDir/src/main/resources/db/migration"]
+	
 }
-
 generateCsmartJooqSchemaSource.dependsOn flywayMigrate
 test.dependsOn flywayClean
